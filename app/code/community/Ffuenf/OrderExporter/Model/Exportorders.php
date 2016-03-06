@@ -51,7 +51,6 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         $blank = $this->getBlankOrderValues($order);
         $orderItems = $order->getItemsCollection();
         $itemInc = 0;
-        $data = array();
         $count = 0;
         foreach ($orderItems as $item) {
             if ($count == 0) {

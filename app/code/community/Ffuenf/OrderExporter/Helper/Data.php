@@ -45,6 +45,11 @@ class Ffuenf_OrderExporter_Helper_Data extends Ffuenf_Common_Helper_Core
         return $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, 'bExtensionActive');
     }
 
+    /**
+     * Get compatible Magento Version
+     *
+     * @return bool
+     */
     public function getVersion()
     {
         $m = new Mage;

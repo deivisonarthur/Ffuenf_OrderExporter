@@ -35,12 +35,12 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     public $invoiceCreatedAt = '';
     public $shipmentCreatedAt = '';
 
-    public function _construct()
+    protected function _construct()
     {
         $this->setLastOrderItemId();
     }
 
-    public function setItemData()
+    protected function setItemData()
     {
         $order         = $this->getOrderModel($this->lastOrderIncrementId);
         $shippedItem   = array();
@@ -71,7 +71,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         $this->canceledItem = $canceledItem;
     }
 
-    public function setGlobalData($lastOrderIncrementId, $orderItems, $salesOrderArr)
+    protected function setGlobalData($lastOrderIncrementId, $orderItems, $salesOrderArr)
     {
         $this->lastOrderIncrementId = $lastOrderIncrementId;
         $this->orderItems           = $orderItems;
@@ -83,7 +83,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         $this->setItemData();
     }
 
-    public function setTime($lastOrderIncrementId, $salesOrderArr)
+    protected function setTime($lastOrderIncrementId, $salesOrderArr)
     {
         Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId)
         ->setCreatedAt($salesOrderArr['created_at'])
@@ -92,7 +92,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         ->unsetData();
     }
 
-    public function setLastOrderItemId()
+    protected function setLastOrderItemId()
     {
         $resource = Mage::getSingleton('core/resource');
         $conn = $resource->getConnection('core_read');
@@ -102,13 +102,15 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * @return int
+     */
     public function createOrder($salesOrderArr, $salesOrderItemArr, $storeId)
     {
         $this->storeId = $storeId;
         if (!$this->orderIdStatus($salesOrderArr['increment_id'])) {
             return 2;
         }
-
         $transaction = Mage::getSingleton('core/resource_transaction');
         $order = Mage::getModel('sales/order')
                  ->setIncrementId($salesOrderArr['increment_id'])
@@ -272,22 +274,28 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
-    public function setProcessing()
+    /**
+     * @return int
+     */
+    protected function setProcessing()
     {
         if ($this->partialInvoiced) {
-            $resp = $this->getInvoiceObj()->createInvoice($this->lastOrderIncrementId, $this->invoicedItem, $this->invoiceCreatedAt);
+            $this->getInvoiceObj()->createInvoice($this->lastOrderIncrementId, $this->invoicedItem, $this->invoiceCreatedAt);
         }
         if ($this->partialShipped) {
-            $resp = $this->getShipmentObj()->createShipment($this->lastOrderIncrementId, $this->shippedItem, $this->shipmentCreatedAt);
+            $this->getShipmentObj()->createShipment($this->lastOrderIncrementId, $this->shippedItem, $this->shipmentCreatedAt);
         }
         if ($this->partialCredited) {
-            $resp = $this->getCreditmemoObj()->createCreditMemo($this->lastOrderIncrementId, $this->creditItem, $this->orderDetailArr);
+            $this->getCreditmemoObj()->createCreditMemo($this->lastOrderIncrementId, $this->creditItem, $this->orderDetailArr);
         }
         $this->unsetAllData();
         return 1;
     }
 
-    public function setHolded()
+    /**
+     * @return int
+     */
+    protected function setHolded()
     {
         try {
             if ($this->setProcessing() == 1) {
@@ -302,7 +310,10 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
-    public function setPaymentReview()
+    /**
+     * @return int
+     */
+    protected function setPaymentReview()
     {
         try {
             if ($this->setProcessing() == 1) {
@@ -317,7 +328,10 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
-    public function setCanceled()
+    /**
+     * @return int
+     */
+    protected function setCanceled()
     {
         try {
             if ($this->setProcessing() == 1) {
@@ -333,7 +347,10 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
-    public function setClosed()
+    /**
+     * @return int
+     */
+    protected function setClosed()
     {
         try {
             if ($this->setProcessing() == 1) {
@@ -348,7 +365,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
-    public function updateCanceledQTY()
+    protected function updateCanceledQTY()
     {
         $items = $this->canceledItem;
         foreach ($items as $itemid => $itemqty) {
@@ -358,13 +375,19 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * @return Mage_Sales_Model_Order
+     */
     public function getOrderModel($lastOrderIncrementId)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId);
         return $order;
     }
 
-    public function orderIdStatus($lastOrderIncrementId)
+    /**
+     * @return bool
+     */
+    protected function orderIdStatus($lastOrderIncrementId)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId);
         if ($order->getId()) {
@@ -374,7 +397,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         }
     }
 
-    public function unsetAllData()
+    protected function unsetAllData()
     {
         $this->shippedItem = array();
         $this->invoicedItem = array();
@@ -386,22 +409,34 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         $this->orderDetailArr = false;
     }
 
-    public function getInvoiceObj()
+    /**
+     * @return Ffuenf_OrderExporter_Model_Operations_Invoice
+     */
+    protected function getInvoiceObj()
     {
         return Mage::getModel('exporter/operations_invoice');
     }
 
-    public function getShipmentObj()
+    /**
+     * @return Ffuenf_OrderExporter_Model_Operations_Shipment
+     */
+    protected function getShipmentObj()
     {
         return Mage::getModel('exporter/operations_shipment');
     }
 
-    public function getCreditmemoObj()
+    /**
+     * @return Ffuenf_OrderExporter_Model_Operations_Creditmemo
+     */
+    protected function getCreditmemoObj()
     {
         return Mage::getModel('exporter/operations_creditmemo');
     }
 
-    public function getCustomerInfo($email)
+    /**
+     * @return string|bool
+     */
+    protected function getCustomerInfo($email)
     {
         $customer = Mage::getModel("customer/customer");
         $customer->setWebsiteId(Mage::getModel('core/store')->load($this->storeId)->getWebsiteId());
