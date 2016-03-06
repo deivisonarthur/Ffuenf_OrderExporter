@@ -64,9 +64,9 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
                                 'timestamp' => 'datetime',
                                 'extension' => 'Ffuenf_OrderExporter',
                                 'type' => 'debug',
-                                'message' => "<p><strong>Order Id:</strong> {$this->order_info['increment_id']}</p>
+                                'message' => "<p><strong>Order Id:</strong>" . $this->order_info['increment_id'] . "</p>
                                               <p><strong>Error Message:</strong> Order id already exist</p>
-                                              <p><strong>Line Number:</strong> {$line_number}</p>";
+                                              <p><strong>Line Number:</strong>" . $line_number . "</p>"
                             )
                         );
                         $decline[] = $this->order_info['increment_id'];

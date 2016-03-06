@@ -59,44 +59,45 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
     public function getStoreIds()
     {
         $collection = Mage::getModel('core/store')->getCollection();
-        $store_ids = array();
+        $storeIds = array();
         $i = 0;
         foreach ($collection as $data) {
-            $store_ids[$i]['label'] = $data['name'];
-            $store_ids[$i]['value'] = $data['store_id'];
+            $storeIds[$i]['label'] = $data['name'];
+            $storeIds[$i]['value'] = $data['store_id'];
             $i++;
         }
-        return $store_ids;
+        return $storeIds;
     }
 
     public function getCreditMemoDetail($order)
     {
-        $credit_detail['adjustment_positive'] = 0;
-        $credit_detail['adjustment_negative'] = 0;
-        $credit_detail['shipping_amount'] = 0;
-        $credit_detail['base_shipping_amount'] = 0;
-        $credit_detail['subtotal'] = 0;
-        $credit_detail['base_subtotal'] = 0;
-        $credit_detail['tax_amount'] = 0;
-        $credit_detail['base_tax_amount'] = 0;
-        $credit_detail['discount_amount'] = 0;
-        $credit_detail['base_discount_amount'] = 0;
+        $creditDetail = array();
+        $creditDetail['adjustment_positive'] = 0;
+        $creditDetail['adjustment_negative'] = 0;
+        $creditDetail['shipping_amount'] = 0;
+        $creditDetail['base_shipping_amount'] = 0;
+        $creditDetail['subtotal'] = 0;
+        $creditDetail['base_subtotal'] = 0;
+        $creditDetail['tax_amount'] = 0;
+        $creditDetail['base_tax_amount'] = 0;
+        $creditDetail['discount_amount'] = 0;
+        $creditDetail['base_discount_amount'] = 0;
         $collection = $order->getCreditmemosCollection();
         if (count($collection)) {
             foreach ($collection as $data) {
-                $credit_detail['adjustment_positive'] += $data->getData('adjustment_positive');
-                $credit_detail['adjustment_negative'] += $data->getData('adjustment_negative');
-                $credit_detail['shipping_amount'] += $data->getData('shipping_amount');
-                $credit_detail['base_shipping_amount'] += $data->getData('base_shipping_amount');
-                $credit_detail['subtotal'] += $data->getData('subtotal');
-                $credit_detail['base_subtotal'] += $data->getData('base_subtotal');
-                $credit_detail['tax_amount'] += $data->getData('tax_amount');
-                $credit_detail['base_tax_amount'] += $data->getData('base_tax_amount');
-                $credit_detail['discount_amount'] += $data->getData('discount_amount');
-                $credit_detail['base_discount_amount'] += $data->getData('base_discount_amount');
+                $creditDetail['adjustment_positive'] += $data->getData('adjustment_positive');
+                $creditDetail['adjustment_negative'] += $data->getData('adjustment_negative');
+                $creditDetail['shipping_amount'] += $data->getData('shipping_amount');
+                $creditDetail['base_shipping_amount'] += $data->getData('base_shipping_amount');
+                $creditDetail['subtotal'] += $data->getData('subtotal');
+                $creditDetail['base_subtotal'] += $data->getData('base_subtotal');
+                $creditDetail['tax_amount'] += $data->getData('tax_amount');
+                $creditDetail['base_tax_amount'] += $data->getData('base_tax_amount');
+                $creditDetail['discount_amount'] += $data->getData('discount_amount');
+                $creditDetail['base_discount_amount'] += $data->getData('base_discount_amount');
             }
         }
-        return $credit_detail;
+        return $creditDetail;
     }
 
     public function getInvoiceDate($order)

@@ -20,8 +20,8 @@ class Ffuenf_OrderExporter_Model_Operations_Shipment extends Mage_Core_Model_Abs
 {
     public function createShipment($order_id, $shipped_item, $date)
     {
-        $order = $this->getOrderModel($order_id);
         try {
+            $order = $this->getOrderModel($order_id);
             if ($order->canShip()) {
                 $shipId = Mage::getModel('sales/order_shipment_api')->create($order_id, $shipped_item, null, 0, 0);
                 if ($shipId) {
@@ -33,11 +33,10 @@ class Ffuenf_OrderExporter_Model_Operations_Shipment extends Mage_Core_Model_Abs
                     $this->updateShipmentQTY($shipped_item);
                 }
             }
+            $order->unsetData();
         } catch (Exception $e) {
             Ffuenf_Common_Model_Logger::logException($e);
         }
-        $order->unsetData();
-        return $shipment;
     }
 
     public function updateShipmentQTY($shipped_item)

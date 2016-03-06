@@ -20,8 +20,8 @@ class Ffuenf_OrderExporter_Model_Operations_Invoice extends Mage_Core_Model_Abst
 {
     public function createInvoice($order_id, $invoice_item, $date)
     {
-        $order = $this->getOrderModel($order_id);
         try {
+            $order = $this->getOrderModel($order_id);
             if ($order->canInvoice()) {
                 $invoiceId = Mage::getModel('sales/order_invoice_api')->create($order->getIncrementId(), $invoice_item, null, 0, 0);
                 if ($invoiceId) {
@@ -33,11 +33,10 @@ class Ffuenf_OrderExporter_Model_Operations_Invoice extends Mage_Core_Model_Abst
                     $this->updateInvoiceQTY($invoice_item);
                 }
             }
+            $order->unsetData();
         } catch (Exception $e) {
             Ffuenf_Common_Model_Logger::logException($e);
         }
-        $order->unsetData();
-        return $invoiceId;
     }
 
     public function updateInvoiceQTY($invoice_item)

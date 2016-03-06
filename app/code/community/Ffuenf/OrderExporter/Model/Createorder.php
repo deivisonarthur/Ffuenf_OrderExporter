@@ -98,7 +98,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         $conn = $resource->getConnection('core_read');
         $results = $conn->query("SHOW TABLE STATUS LIKE '" . $resource->getTableName('sales/order_item') . "'")->fetchAll();
         foreach ($results as $data) {
-            $this->parent_id_flag = $data['Auto_increment'] - 1;
+            $this->parent_id_flag = (int)$data['Auto_increment'] - 1;
         }
     }
 
@@ -275,15 +275,15 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
 
     public function setProcessing()
     {
-        if ($this->partial_invoiced)
+        if ($this->partial_invoiced) {
             $resp = $this->getInvoiceObj()->createInvoice($this->last_order_increment_id, $this->invoiced_item, $this->invoice_created_at);
-
-        if ($this->partial_shipped)
+        }
+        if ($this->partial_shipped) {
             $resp = $this->getShipmentObj()->createShipment($this->last_order_increment_id, $this->shipped_item, $this->shipment_created_at);
-
-        if ($this->partial_credited)
+        }
+        if ($this->partial_credited) {
             $resp = $this->getCreditmemoObj()->createCreditMemo($this->last_order_increment_id, $this->credit_item, $this->order_detai_arr);
-
+        }
         $this->unsetAllData();
         return 1;
     }
