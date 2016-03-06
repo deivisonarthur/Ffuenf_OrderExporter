@@ -18,19 +18,19 @@
 
 class Ffuenf_OrderExporter_Model_Operations_Shipment extends Mage_Core_Model_Abstract
 {
-    public function createShipment($order_id, $shipped_item, $date)
+    public function createShipment($orderId, $shippedItem, $date)
     {
         try {
-            $order = $this->getOrderModel($order_id);
+            $order = $this->getOrderModel($orderId);
             if ($order->canShip()) {
-                $shipId = Mage::getModel('sales/order_shipment_api')->create($order_id, $shipped_item, null, 0, 0);
+                $shipId = Mage::getModel('sales/order_shipment_api')->create($orderId, $shippedItem, null, 0, 0);
                 if ($shipId) {
                     Mage::getSingleton("sales/order_shipment")->loadByIncrementId($shipId)
                     ->setCreatedAt($date)
                     ->setUpdatedAt($date)
                     ->save()
                     ->unsetData();
-                    $this->updateShipmentQTY($shipped_item);
+                    $this->updateShipmentQTY($shippedItem);
                 }
             }
             $order->unsetData();
@@ -39,18 +39,18 @@ class Ffuenf_OrderExporter_Model_Operations_Shipment extends Mage_Core_Model_Abs
         }
     }
 
-    public function updateShipmentQTY($shipped_item)
+    public function updateShipmentQTY($shippedItem)
     {
-        foreach ($shipped_item as $itemid => $itemqty) {
+        foreach ($shippedItem as $itemid => $itemqty) {
             $orderItem = Mage::getModel('sales/order_item')->load($itemid);
             $orderItem->setQtyShipped($itemqty)->save();
             $orderItem->unsetData();
         }
     }
 
-    public function getOrderModel($last_order_increment_id)
+    public function getOrderModel($lastOrderIncrementId)
     {
-        $order = Mage::getModel('sales/order')->loadByIncrementId($last_order_increment_id);
+        $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId);
         return $order;
     }
 }

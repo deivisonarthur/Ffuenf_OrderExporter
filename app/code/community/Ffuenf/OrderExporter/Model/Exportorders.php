@@ -192,7 +192,7 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         if (!$shippingAddress) {
             $shippingAddress = $billingAddress;
         }
-        $credit_detail = $this->getCreditMemoDetail($order);
+        $creditDetail = $this->getCreditMemoDetail($order);
         return array(
             $order->getIncrementId(),
             $order->getData('customer_email'),
@@ -229,16 +229,16 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
             $order->getData('grand_total'),
             $order->getData('base_grand_total'),
             $order->getData('base_shipping_amount'),
-            $credit_detail['adjustment_positive'],
-            $credit_detail['adjustment_negative'],
-            $credit_detail['shipping_amount'],
-            $credit_detail['base_shipping_amount'],
-            $credit_detail['subtotal'],
-            $credit_detail['base_subtotal'],
-            $credit_detail['tax_amount'],
-            $credit_detail['base_tax_amount'],
-            $credit_detail['discount_amount'],
-            $credit_detail['base_discount_amount'],
+            $creditDetail['adjustment_positive'],
+            $creditDetail['adjustment_negative'],
+            $creditDetail['shipping_amount'],
+            $creditDetail['base_shipping_amount'],
+            $creditDetail['subtotal'],
+            $creditDetail['base_subtotal'],
+            $creditDetail['tax_amount'],
+            $creditDetail['base_tax_amount'],
+            $creditDetail['discount_amount'],
+            $creditDetail['base_discount_amount'],
             $order->getData('store_id'),
             $order->getStatus(),
             $order->getState(),

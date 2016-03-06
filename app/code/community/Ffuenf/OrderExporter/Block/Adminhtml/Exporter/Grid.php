@@ -18,8 +18,8 @@
 
 class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-   public function __construct()
-   {
+    public function __construct()
+    {
         parent::__construct();
         $this->setId('sales_order_export_grid');
         $this->setUseAjax(true);
@@ -59,24 +59,24 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn(
                 'store_id',
-                    array(
-                        'header'          => Mage::helper('sales')->__('Purchased From (Store)'),
-                        'index'           => 'store_id',
-                        'type'            => 'store',
-                        'store_view'      => true,
-                        'display_deleted' => true
-                    )
-                );
+                array(
+                    'header'          => Mage::helper('sales')->__('Purchased From (Store)'),
+                    'index'           => 'store_id',
+                    'type'            => 'store',
+                    'store_view'      => true,
+                    'display_deleted' => true
+                )
+            );
         }
         $this->addColumn(
             'created_at',
-                array(
-                    'header' => Mage::helper('sales')->__('Purchased On'),
-                    'index'  => 'created_at',
-                    'type'   => 'datetime',
-                    'width'  => '100px'
-                )
-            );
+            array(
+                'header' => Mage::helper('sales')->__('Purchased On'),
+                'index'  => 'created_at',
+                'type'   => 'datetime',
+                'width'  => '100px'
+            )
+        );
         $this->addColumn(
             'billing_name',
             array(
@@ -85,10 +85,12 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
             )
         );
         $this->addColumn(
-            'shipping_name', array(
-            'header' => Mage::helper('sales')->__('Ship to Name'),
-            'index' => 'shipping_name'
-        ));
+            'shipping_name',
+            array(
+                'header' => Mage::helper('sales')->__('Ship to Name'),
+                'index' => 'shipping_name'
+            )
+        );
         $this->addColumn(
             'base_grand_total',
             array(
@@ -118,7 +120,8 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
             )
         );
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            $this->addColumn('action',
+            $this->addColumn(
+                'action',
                 array(
                     'header'  => Mage::helper('sales')->__('Action'),
                     'width'   => '50px',
@@ -135,7 +138,8 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
                     'sortable'  => false,
                     'index'     => 'stores',
                     'is_system' => true
-            ));
+                )
+            );
         }
         return parent::_prepareColumns();
     }

@@ -18,28 +18,28 @@
 
 class Ffuenf_OrderExporter_Model_Operations_Creditmemo extends Mage_Core_Model_Abstract
 {
-    public function createCreditMemo($order_id, $credit_item, $creditDetail)
+    public function createCreditMemo($orderId, $creditItem, $creditDetail)
     {
-        $order = $this->getOrderModel($order_id);
+        $order = $this->getOrderModel($orderId);
         try {
-            $data = array('qtys' => $credit_item, 'shipping_amount' => $creditDetail['refunded_shipping_amount'],
+            $data = array('qtys' => $creditItem, 'shipping_amount' => $creditDetail['refunded_shipping_amount'],
             'adjustment_positive'=>$creditDetail['adjustment_positive'], 'adjustment_negative' => $creditDetail['adjustment_negative']);
             if (Mage::helper('ffuenf_orderexporter')->getVersion()) {
                 $service = Mage::getModel('sales/service_order', $order);
                 $creditMemo = $service->prepareCreditmemo($data);
                 $creditMemo = $creditMemo->setState(2)->save();
-                $this->updateStatus($order_id, $creditDetail);
+                $this->updateStatus($orderId, $creditDetail);
             } else {
-                $creditMemo = Mage::getModel('sales/order_creditmemo_api')->create($order_id, $data, null, 0, 0);
+                $creditMemo = Mage::getModel('sales/order_creditmemo_api')->create($orderId, $data, null, 0, 0);
             }
             $model = Mage::getSingleton("sales/order_creditmemo");
-            $credit_id = $model->getCollection()->getLastItem()->getId();
-            $model->load($credit_id)
+            $creditId = $model->getCollection()->getLastItem()->getId();
+            $model->load($creditId)
                   ->setCreatedAt($creditDetail['creditmemo_created_at'])
                   ->setUpdatedAt($creditDetail['creditmemo_created_at'])
                   ->save()
                   ->unsetData();
-            $this->updateCreditQTY($credit_item);
+            $this->updateCreditQTY($creditItem);
         } catch (Exception $e) {
             Ffuenf_Common_Model_Logger::logException($e);
         }
@@ -47,18 +47,18 @@ class Ffuenf_OrderExporter_Model_Operations_Creditmemo extends Mage_Core_Model_A
         return true;
     }
 
-    public function updateCreditQTY($credit_item)
+    public function updateCreditQTY($creditItem)
     {
-        foreach ($credit_item as $itemid => $itemqty) {
+        foreach ($creditItem as $itemid => $itemqty) {
             $orderItem = Mage::getModel('sales/order_item')->load($itemid);
             $orderItem->setQtyRefunded($itemqty)->save();
             $orderItem->unsetData();
         }
     }
 
-    public function updateStatus($order_id, $refunded)
+    public function updateStatus($orderId, $refunded)
     {
-        $order = $this->getOrderModel($order_id);
+        $order = $this->getOrderModel($orderId);
         //set creditmemo data
         $order->setSubtotalRefunded($refunded['refunded_subtotal'])
             ->setBaseSubtotalRefunded($refunded['refunded_subtotal'])
@@ -80,9 +80,9 @@ class Ffuenf_OrderExporter_Model_Operations_Creditmemo extends Mage_Core_Model_A
         $order->unsetData();
     }
 
-    public function getOrderModel($last_order_increment_id)
+    public function getOrderModel($lastOrderIncrementId)
     {
-        $order = Mage::getModel('sales/order')->loadByIncrementId($last_order_increment_id);
+        $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId);
         return $order;
     }
 }

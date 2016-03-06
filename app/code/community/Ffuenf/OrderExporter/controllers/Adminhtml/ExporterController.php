@@ -44,11 +44,11 @@ class Ffuenf_OrderExporter_Adminhtml_ExporterController extends Mage_Adminhtml_C
     public function exportallAction()
     {
         $orders = Mage::getModel('sales/order')->getCollection()->addAttributeToSelect('entity_id');
-        $order_arr = array();
+        $orderArr = array();
         foreach ($orders as $order) {
-            $order_arr[] = $order->getId();
+            $orderArr[] = $order->getId();
         }
-        $file = Mage::getModel('exporter/exportorders')->exportOrders($order_arr);
+        $file = Mage::getModel('exporter/exportorders')->exportOrders($orderArr);
         $this->_prepareDownloadResponse($file, file_get_contents(Mage::getBaseDir('export') . '/' . $file));
     }
 
