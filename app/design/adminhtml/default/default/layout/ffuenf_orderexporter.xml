@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ffuenf_OrderExporter extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ffuenf
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2016 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+*/
+-->
+<layout version="0.1.0">
+    <adminhtml_exporter_index>
+        <reference name="content">
+            <block type="exporter/adminhtml_exporter" name="exporter" />
+        </reference>
+    </adminhtml_exporter_index>
+    <adminhtml_exporter_grid>
+        <reference name="root">
+            <block type="exporter/adminhtml_exporter_grid" name="root" output="toHtml" />
+        </reference>
+    </adminhtml_exporter_grid>
+    <adminhtml_importer_index>
+        <reference name="content">
+            <block type="exporter/adminhtml_exporter_edit_tab_form" name="importer" />
+        </reference>
+    </adminhtml_importer_index>
+</layout>

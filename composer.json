@@ -1,0 +1,40 @@
+{
+  "name": "Ffuenf/Ffuenf_OrderExporter",
+  "license": "MIT",
+  "description": "This is a extension for Magento Community Edition for exporting/importing orders, including shipment, invoice and credit memo.",
+  "authors": [
+    {
+      "name": "Rave Infosys"
+    },
+    {
+      "name": "Achim Rosenhagen",
+      "email": "a.rosenhagen@ffuenf.de"
+    }
+  ],
+  "type": "magento-module",
+  "require": {
+    "Ffuenf/Ffuenf_Common": "*",
+    "Ffuenf/Ffuenf_MageTrashApp": "*"
+  },
+  "require-dev": {
+    "aoepeople/composer-installers": "*"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.firegento.com"
+    },
+    {
+      "type": "composer",
+      "url": "https://packages.magento.com"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ffuenf/Ffuenf_Common"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ffuenf/Ffuenf_MageTrashApp"
+    }
+  ]
+}
