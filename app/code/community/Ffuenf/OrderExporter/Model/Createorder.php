@@ -35,7 +35,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     public $invoiceCreatedAt = '';
     public $shipmentCreatedAt = '';
 
-    protected function _construct()
+    public function _construct()
     {
         $this->setLastOrderItemId();
     }
@@ -103,7 +103,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return integer|null
      */
     public function createOrder($salesOrderArr, $salesOrderItemArr, $storeId)
     {
@@ -293,7 +293,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return integer|null
      */
     protected function setHolded()
     {
@@ -311,7 +311,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return integer|null
      */
     protected function setPaymentReview()
     {
@@ -329,7 +329,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return integer|null
      */
     protected function setCanceled()
     {
@@ -348,7 +348,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return integer|null
      */
     protected function setClosed()
     {

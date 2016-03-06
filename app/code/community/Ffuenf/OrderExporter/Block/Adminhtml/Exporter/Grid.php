@@ -38,6 +38,9 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
         return 'sales/order_grid_collection';
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
@@ -45,6 +48,9 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid
+     */
     protected function _prepareColumns()
     {
         $this->addColumn(
@@ -144,6 +150,9 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('entity_id');
@@ -159,11 +168,17 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Grid extends Mage_Adminhtml_
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', array('_current'=>true));
     }
 
+    /**
+     * @return bool
+     */
     public function getRowUrl($row)
     {
         return false;

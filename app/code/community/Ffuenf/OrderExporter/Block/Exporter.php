@@ -18,11 +18,17 @@
 
 class Ffuenf_OrderExporter_Block_Exporter extends Mage_Core_Block_Template
 {
+    /**
+     * @return Mage_Core_Block_Template
+     */
     public function _prepareLayout()
     {
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getExporter()
     {
         if (!$this->hasData('exporter')) {

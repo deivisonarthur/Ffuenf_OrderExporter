@@ -26,6 +26,9 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Edit_Tabs extends Mage_Admin
       $this->setTitle(Mage::helper('ffuenf_orderexporter')->__('Import Orders'));
   }
 
+  /**
+   * @return Mage_Adminhtml_Block_Widget_Tabs
+   */
   protected function _beforeToHtml()
   {
       $this->addTab(

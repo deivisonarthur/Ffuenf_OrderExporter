@@ -18,6 +18,9 @@
 
 class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Form
+     */
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(

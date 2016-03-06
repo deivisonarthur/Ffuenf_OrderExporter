@@ -47,6 +47,9 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Edit extends Mage_Adminhtml_
         }";
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if (Mage::registry('orderexporter_data') && Mage::registry('orderexporter_data')->getId()) {

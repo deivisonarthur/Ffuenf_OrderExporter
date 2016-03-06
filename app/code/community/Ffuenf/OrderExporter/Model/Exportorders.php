@@ -21,6 +21,9 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
     const ENCLOSURE = '"';
     const DELIMITER = ',';
 
+    /**
+     * @return string
+     */
     public function exportOrders($orders)
     {
         $fileName = 'order_export_' . date("Ymd_His") . '.csv';
@@ -64,6 +67,9 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         }
     }
 
+    /**
+     * @return array
+     */
     protected function getHeadRowValues()
     {
         return array(
@@ -184,6 +190,9 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         );
     }
 
+    /**
+     * @return array
+     */
     protected function getCommonOrderValues($order)
     {
         $shippingAddress = !$order->getIsVirtual() ? $order->getShippingAddress() : null;
@@ -287,6 +296,9 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         );
     }
 
+    /**
+     * @return array
+     */
     protected function getBlankOrderValues($order)
     {
         return array(
@@ -296,7 +308,11 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         );
     }
 
-    //To return the array of ordered items
+    /**
+     * To return the array of ordered items
+     *
+     * @return array
+     */
     protected function getOrderItemValues($item, $order, $itemInc = 1)
     {
         return array(

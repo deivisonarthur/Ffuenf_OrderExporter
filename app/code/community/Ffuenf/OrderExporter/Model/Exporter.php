@@ -18,11 +18,17 @@
 
 class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
 {
+    /**
+     * @return string
+     */
     public function getPaymentMethod($order)
     {
         return $order->getPayment()->getMethod();
     }
 
+    /**
+     * @return string
+     */
     public function getChildInfo($item)
     {
         if ($item->getParentItemId()) {
@@ -32,6 +38,9 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * @return string
+     */
     public function getShippingMethod($order)
     {
         if (!$order->getIsVirtual() && $order->getShippingDescription()) {
@@ -42,6 +51,9 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getItemSku($item)
     {
         if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
@@ -50,12 +62,18 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         return $item->getSku();
     }
 
+    /**
+     * @return string
+     */
     public function formatText($string)
     {
         $string = str_replace(',', ' ', $string);
         return $string;
     }
 
+    /**
+     * @return array
+     */
     public function getStoreIds()
     {
         $collection = Mage::getModel('core/store')->getCollection();
@@ -69,6 +87,9 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         return $storeIds;
     }
 
+    /**
+     * @return array
+     */
     public function getCreditMemoDetail($order)
     {
         $creditDetail = array();
@@ -100,6 +121,9 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         return $creditDetail;
     }
 
+    /**
+     * @return string
+     */
     public function getInvoiceDate($order)
     {
         $date = '';
@@ -112,6 +136,9 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         return $date;
     }
 
+    /**
+     * @return string
+     */
     public function getShipmentDate($order)
     {
         $date = '';
@@ -124,6 +151,9 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         return $date;
     }
 
+    /**
+     * @return string
+     */
     public function getCreditmemoDate($order)
     {
         $date = '';

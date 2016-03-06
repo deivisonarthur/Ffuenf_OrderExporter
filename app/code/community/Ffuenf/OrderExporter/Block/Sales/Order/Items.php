@@ -18,6 +18,9 @@
 
 class Ffuenf_OrderExporter_Block_Sales_Order_Items extends Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Items
 {
+    /**
+     * @return bool|string
+     */
     public function canCreateShippingLabel()
     {
         $shippingCarrier = $this->getOrder()->getShippingCarrier();

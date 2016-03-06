@@ -18,6 +18,9 @@
 
 class Ffuenf_OrderExporter_Block_Sales_Order_Form_Form extends Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form
 {
+    /**
+     * @return bool|string
+     */
     public function canCreateShippingLabel()
     {
         $shippingCarrier = $this->getOrder()->getShippingCarrier();
