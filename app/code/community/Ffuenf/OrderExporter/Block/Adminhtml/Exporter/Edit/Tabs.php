@@ -32,12 +32,12 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Edit_Tabs extends Mage_Admin
     protected function _beforeToHtml()
     {
         $this->addTab(
-        'form_section',
-        array(
-            'label'   => Mage::helper('ffuenf_orderexporter')->__('Import Orders'),
-            'title'   => Mage::helper('ffuenf_orderexporter')->__('Import Orders'),
-            'content' => $this->getLayout()->createBlock('exporter/adminhtml_exporter_edit_tab_form')->toHtml()
-                )
+            'form_section',
+            array(
+                'label'   => Mage::helper('ffuenf_orderexporter')->__('Import Orders'),
+                'title'   => Mage::helper('ffuenf_orderexporter')->__('Import Orders'),
+                'content' => $this->getLayout()->createBlock('exporter/adminhtml_exporter_edit_tab_form')->toHtml()
+                    )
         );
         return parent::_beforeToHtml();
     }

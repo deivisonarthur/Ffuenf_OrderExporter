@@ -21,8 +21,8 @@ class Ffuenf_OrderExporter_Adminhtml_ExporterController extends Mage_Adminhtml_C
     protected function _initAction()
     {
         $this->loadLayout()
-             ->_setActiveMenu('exporter/items')
-             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Items Manager'), Mage::helper('adminhtml')->__('Item Manager'));
+            ->_setActiveMenu('exporter/items')
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Items Manager'), Mage::helper('adminhtml')->__('Item Manager'));
         return $this;
     }
 
