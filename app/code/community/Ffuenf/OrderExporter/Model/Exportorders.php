@@ -68,7 +68,7 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getHeadRowValues()
     {
@@ -297,7 +297,7 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function getBlankOrderValues($order)
     {

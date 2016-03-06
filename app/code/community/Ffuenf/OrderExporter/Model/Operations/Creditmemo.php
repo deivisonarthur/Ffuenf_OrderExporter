@@ -27,7 +27,7 @@ class Ffuenf_OrderExporter_Model_Operations_Creditmemo extends Mage_Core_Model_A
             if (Mage::helper('ffuenf_orderexporter')->getVersion()) {
                 $service = Mage::getModel('sales/service_order', $order);
                 $creditMemo = $service->prepareCreditmemo($data);
-                $creditMemo = $creditMemo->setState(2)->save();
+                $creditMemo->setState(2)->save();
                 $this->updateStatus($orderId, $creditDetail);
             } else {
                 Mage::getModel('sales/order_creditmemo_api')->create($orderId, $data, null, 0, 0);
@@ -44,7 +44,6 @@ class Ffuenf_OrderExporter_Model_Operations_Creditmemo extends Mage_Core_Model_A
             Ffuenf_Common_Model_Logger::logException($e);
         }
         $order->unsetData();
-        return true;
     }
 
     public function updateCreditQTY($creditItem)
@@ -80,6 +79,9 @@ class Ffuenf_OrderExporter_Model_Operations_Creditmemo extends Mage_Core_Model_A
         $order->unsetData();
     }
 
+    /**
+     * @return Mage_Sales_Model_Order
+     */
     public function getOrderModel($lastOrderIncrementId)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId);

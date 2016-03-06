@@ -28,12 +28,7 @@ class Ffuenf_OrderExporter_Helper_Data extends Ffuenf_Common_Helper_Core
      *
      * @var bool
      */
-    protected $bExtensionActive;
-
-    /**
-     * @var string
-     */
-    protected $error_file = '';
+    protected $_bExtensionActive;
 
     /**
      * Check to see if the extension is active.
@@ -42,7 +37,7 @@ class Ffuenf_OrderExporter_Helper_Data extends Ffuenf_Common_Helper_Core
      */
     public function isExtensionActive()
     {
-        return $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, 'bExtensionActive');
+        return $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, '_bExtensionActive');
     }
 
     /**
@@ -54,10 +49,6 @@ class Ffuenf_OrderExporter_Helper_Data extends Ffuenf_Common_Helper_Core
     {
         $m = new Mage;
         $version = $m->getVersion();
-        if (in_array($version, array('1.5.0.0', '1.5.0.1', '1.5.1.0', '1.6.0.0', '1.9.1.1', '1.10.0.2', '1.10.1.1', '1.11.0.0'))) {
-            return true;
-        } else {
-            return false;
-        }
+        return in_array($version, array('1.5.0.0', '1.5.0.1', '1.5.1.0', '1.6.0.0', '1.9.1.1', '1.10.0.2', '1.10.1.1', '1.11.0.0'));
     }
 }

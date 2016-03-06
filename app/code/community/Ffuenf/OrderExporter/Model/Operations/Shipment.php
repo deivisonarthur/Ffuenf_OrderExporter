@@ -48,6 +48,9 @@ class Ffuenf_OrderExporter_Model_Operations_Shipment extends Mage_Core_Model_Abs
         }
     }
 
+    /**
+     * @return Mage_Sales_Model_Order
+     */
     public function getOrderModel($lastOrderIncrementId)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId);

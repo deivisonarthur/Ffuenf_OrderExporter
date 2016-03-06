@@ -48,6 +48,9 @@ class Ffuenf_OrderExporter_Model_Operations_Invoice extends Mage_Core_Model_Abst
         }
     }
 
+    /**
+     * @return Mage_Sales_Model_Order
+     */
     public function getOrderModel($lastOrderIncrementId)
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($lastOrderIncrementId);
