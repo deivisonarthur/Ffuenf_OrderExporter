@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ffuenf_OrderExporter extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ffuenf
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2016 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+*/
+-->
+<config>
+    <modules>
+        <Ffuenf_OrderExporter>
+            <version>1.0.5</version>
+        </Ffuenf_OrderExporter>
+    </modules>
+    <global>
+        <helpers>
+            <ffuenf_orderexporter>
+                <class>Ffuenf_OrderExporter_Helper</class>
+            </ffuenf_orderexporter>
+        </helpers>
+        <blocks>
+            <ffuenf_orderexporter>
+                <class>Ffuenf_OrderExporter_Block</class>
+            </ffuenf_orderexporter>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_shipment_view_form>Ffuenf_OrderExporter_Block_Sales_Order_Form_Form</sales_order_shipment_view_form>
+                </rewrite>
+            </adminhtml>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_shipment_create_items>Ffuenf_OrderExporter_Block_Sales_Order_Items</sales_order_shipment_create_items>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <models>
+            <ffuenf_orderexporter>
+                <class>Ffuenf_OrderExporter_Model</class>
+                <resourceModel>ffuenf_orderexporter_mysql4</resourceModel>
+            </ffuenf_orderexporter>
+            <ffuenf_orderexporter_mysql4>
+                <class>Ffuenf_OrderExporter_Model_Mysql4</class>
+                <entities>
+                    <exporter>
+                        <table>exporter</table>
+                    </exporter>
+                </entities>
+            </ffuenf_orderexporter_mysql4>
+        </models>
+        <resources>
+            <ffuenf_orderexporter_setup>
+                <setup>
+                    <module>Ffuenf_OrderExporter</module>
+                </setup>
+            </ffuenf_orderexporter_setup>
+        </resources>
+    </global>
+    <frontend>
+        <routers>
+            <exporter>
+                <use>standard</use>
+                <args>
+                    <module>Ffuenf_OrderExporter</module>
+                    <frontName>orderexporter</frontName>
+                </args>
+            </exporter>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ffuenf_orderexporter before="Mage_Adminhtml">Ffuenf_OrderExporter_Adminhtml</ffuenf_orderexporter>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <ffuenf_orderexporter>
+                    <file>ffuenf_orderexporter.xml</file>
+                </ffuenf_orderexporter>
+            </updates>
+        </layout>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <ffuenf_orderexporter>
+                <schedule>
+                    <config_path>ffuenf_orderexporter/schedule/cron_expr</config_path>
+                </schedule>
+                <run>
+                    <model>ffuenf_orderexporter/cron::export</model>
+                </run>
+            </ffuenf_orderexporter>
+        </jobs>
+    </crontab>
+    <default>
+        <ffuenf_orderexporter>
+            <general>
+                <enable>0</enable>
+            </general>
+            <schedule>
+                <enable>0</enable>
+                <cron_expr>15 * * * *</cron_expr>
+            </schedule>
+        </ffuenf_orderexporter>
+    </default>
+    <uninstall>
+        <filename>uninstall.txt</filename>
+    </uninstall>
+    <phpunit>
+        <suite>
+            <modules>
+                <Ffuenf_OrderExporter/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>
