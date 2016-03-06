@@ -18,12 +18,12 @@
 
 class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
 {
-    public $last_order_increment_id = null ;
-    public $order_items = array() ;
-    public $shipped_item = array() ;
-    public $invoiced_item = array() ;
-    public $credit_item = array() ;
-    public $canceled_item = array() ;
+    public $last_order_increment_id = null;
+    public $order_items = array();
+    public $shipped_item = array();
+    public $invoiced_item = array();
+    public $credit_item = array();
+    public $canceled_item = array();
     public $partial_shipped = false;
     public $partial_credited = false;
     public $partial_invoiced = false;
@@ -171,7 +171,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
                            ->setRegion($sales_order_arr['shipping_address']['region'])
                            ->setPostcode($sales_order_arr['shipping_address']['postcode'])
                            ->setTelephone($sales_order_arr['shipping_address']['telephone'])
-                           ->setFax($sales_order_arr['shipping_address']['fax']) ;
+                           ->setFax($sales_order_arr['shipping_address']['fax']);
         if (!$sales_order_arr['is_virtual']) {
             $order->setShippingAddress($shippingAddress)
                   ->setShippingMethod($sales_order_arr['shipping_method'])
@@ -251,7 +251,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
         if ($transaction->save()) {
             $this->setLastOrderItemId();
             $last_order_increment_id = Mage::getSingleton("sales/order")->getCollection()->getLastItem()->getIncrementId();
-            $this->setGlobalData($last_order_increment_id,$sales_order_item_arr,$sales_order_arr);
+            $this->setGlobalData($last_order_increment_id, $sales_order_item_arr, $sales_order_arr);
             if ($sales_order_arr['order_state'] == 'processing' || $sales_order_arr['order_state'] == 'complete') {
                 return $this->setProcessing();
             }
@@ -264,7 +264,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
             if ($sales_order_arr['order_state'] == 'holded') {
                 return $this->setHolded();
             }
-            if ($sales_order_arr['order_state']=='payment_review') {
+            if ($sales_order_arr['order_state'] == 'payment_review') {
                 return $this->setPaymentReview();
             }
             return 1;
@@ -275,14 +275,14 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
 
     public function setProcessing()
     {
-        if($this->partial_invoiced)
-            $resp = $this->getInvoiceObj()->createInvoice($this->last_order_increment_id,$this->invoiced_item,$this->invoice_created_at);
+        if ($this->partial_invoiced)
+            $resp = $this->getInvoiceObj()->createInvoice($this->last_order_increment_id, $this->invoiced_item, $this->invoice_created_at);
 
-        if($this->partial_shipped)
-            $resp = $this->getShipmentObj()->createShipment($this->last_order_increment_id,$this->shipped_item,$this->shipment_created_at);
+        if ($this->partial_shipped)
+            $resp = $this->getShipmentObj()->createShipment($this->last_order_increment_id, $this->shipped_item, $this->shipment_created_at);
 
-        if($this->partial_credited)
-            $resp = $this->getCreditmemoObj()->createCreditMemo($this->last_order_increment_id,$this->credit_item,$this->order_detai_arr);
+        if ($this->partial_credited)
+            $resp = $this->getCreditmemoObj()->createCreditMemo($this->last_order_increment_id, $this->credit_item, $this->order_detai_arr);
 
         $this->unsetAllData();
         return 1;
@@ -352,7 +352,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
     public function updateCanceledQTY()
     {
         $items = $this->canceled_item;
-        foreach($items as $itemid => $itemqty) {
+        foreach ($items as $itemid => $itemqty) {
             $orderItem = Mage::getModel('sales/order_item')->load($itemid);
             $orderItem->setQtyCanceled($itemqty)->save();
             $orderItem->unsetData();
@@ -377,10 +377,10 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
 
     public function unsetAllData()
     {
-        $this->shipped_item = array() ;
-        $this->invoiced_item = array() ;
-        $this->credit_item = array() ;
-        $this->canceled_item = array() ;
+        $this->shipped_item = array();
+        $this->invoiced_item = array();
+        $this->credit_item = array();
+        $this->canceled_item = array();
         $this->partial_shipped = false;
         $this->partial_credited = false;
         $this->partial_invoiced = false;
@@ -415,7 +415,7 @@ class Ffuenf_OrderExporter_Model_Createorder extends Mage_Core_Model_Abstract
 
     public function removeOrderStatusHistory()
     {
-        $coll = Mage::getModel('sales/order_status_history')->getCollection()->addFieldToFilter('parent_id',Mage::getSingleton("sales/order")->getCollection()->getLastItem()->getId());
+        $coll = Mage::getModel('sales/order_status_history')->getCollection()->addFieldToFilter('parent_id', Mage::getSingleton("sales/order")->getCollection()->getLastItem()->getId());
         foreach ($coll as $history) {
             Mage::getModel('sales/order_status_history')->load($history->getId())->delete()->save()->unsetData();
         }

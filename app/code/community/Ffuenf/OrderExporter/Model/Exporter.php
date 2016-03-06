@@ -83,7 +83,7 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         $credit_detail['base_discount_amount'] = 0;
         $collection = $order->getCreditmemosCollection();
         if (count($collection)) {
-            foreach($collection as $data) {
+            foreach ($collection as $data) {
                 $credit_detail['adjustment_positive'] += $data->getData('adjustment_positive');
                 $credit_detail['adjustment_negative'] += $data->getData('adjustment_negative');
                 $credit_detail['shipping_amount'] += $data->getData('shipping_amount');
@@ -104,7 +104,7 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         $date = '';
         $collection = $order->getInvoiceCollection();
         if (count($collection)) {
-            foreach($collection as $data) {
+            foreach ($collection as $data) {
                 $date = $data->getData('created_at');
             }
         }
@@ -116,7 +116,7 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         $date = '';
         $collection = $order->getShipmentsCollection();
         if (count($collection)) {
-            foreach($collection as $data) {
+            foreach ($collection as $data) {
                 $date = $data->getData('created_at');
             }
         }
@@ -128,7 +128,7 @@ class Ffuenf_OrderExporter_Model_Exporter extends Mage_Core_Model_Abstract
         $date = '';
         $collection = $order->getCreditmemosCollection();
         if (count($collection)) {
-            foreach($collection as $data) {
+            foreach ($collection as $data) {
                 $date = $data->getData('created_at');
             }
         }

@@ -22,7 +22,7 @@ class Ffuenf_OrderExporter_Model_Cron extends Mage_Core_Model_Abstract
      * Export orders.
      * This method will be called via a Magento crontab task.
      *
-     * @return null|Ffuenf_OrderExporter_Model_Observer
+     * @return null|Ffuenf_OrderExporter_Model_Cron
      */
     public function export()
     {

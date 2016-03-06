@@ -23,7 +23,7 @@ class Ffuenf_OrderExporter_Model_Operations_Shipment extends Mage_Core_Model_Abs
         $order = $this->getOrderModel($order_id);
         try {
             if ($order->canShip()) {
-                $shipId = Mage::getModel('sales/order_shipment_api')->create($order_id, $shipped_item , null , 0, 0);
+                $shipId = Mage::getModel('sales/order_shipment_api')->create($order_id, $shipped_item, null, 0, 0);
                 if ($shipId) {
                     Mage::getSingleton("sales/order_shipment")->loadByIncrementId($shipId)
                     ->setCreatedAt($date)
@@ -42,7 +42,7 @@ class Ffuenf_OrderExporter_Model_Operations_Shipment extends Mage_Core_Model_Abs
 
     public function updateShipmentQTY($shipped_item)
     {
-        foreach($shipped_item as $itemid => $itemqty) {
+        foreach ($shipped_item as $itemid => $itemqty) {
             $orderItem = Mage::getModel('sales/order_item')->load($itemid);
             $orderItem->setQtyShipped($itemqty)->save();
             $orderItem->unsetData();

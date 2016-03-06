@@ -18,12 +18,12 @@
 
 class Ffuenf_OrderExporter_Model_Operations_Invoice extends Mage_Core_Model_Abstract
 {
-    public function createInvoice($order_id,$invoice_item,$date)
+    public function createInvoice($order_id, $invoice_item, $date)
     {
         $order = $this->getOrderModel($order_id);
         try {
             if ($order->canInvoice()) {
-                $invoiceId = Mage::getModel('sales/order_invoice_api')->create($order->getIncrementId(), $invoice_item ,null ,0,0);
+                $invoiceId = Mage::getModel('sales/order_invoice_api')->create($order->getIncrementId(), $invoice_item, null, 0, 0);
                 if ($invoiceId) {
                     Mage::getSingleton("sales/order_invoice")->loadByIncrementId($invoiceId)
                     ->setCreatedAt($date)

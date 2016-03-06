@@ -39,14 +39,14 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
         $total_order        = 0;
         while (!feof($file_handle)) {
             $line_of_text[] = fgetcsv($file_handle);
-            if($i != 0) {
+            if ($i != 0) {
                 if ($line_of_text[$i][0] != '' && $parent_flag == 0) {
                     $this->insertOrderData($line_of_text[$i]);
                     $parent_flag = 1;
                     $total_order++;
-                } else if($line_of_text[$i][91] != '' && $parent_flag == 1 && $line_of_text[$i][0] == '') {
+                } else if ($line_of_text[$i][91] != '' && $parent_flag == 1 && $line_of_text[$i][0] == '') {
                     $this->insertOrderItem($line_of_text[$i]);
-                } else if($parent_flag == 1) {
+                } else if ($parent_flag == 1) {
                     try {
                         $message = Mage::getModel('exporter/createorder')->createOrder($this->order_info, $this->order_item_info, $this->store_id);
                         Mage::getModel('exporter/createorder')->removeOrderStatusHistory();
@@ -76,7 +76,7 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
                     $this->order_item_flag = 0;
                     $this->insertOrderData($line_of_text[$i]);
                     $parent_flag = 1;
-                    $line_number = $i+1;
+                    $line_number = $i + 1;
                     $total_order++;
                 }
             }
@@ -113,7 +113,7 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
         foreach ($orders_data as $order) {
             if (count($sales_order) > $i) {
                 $sales_order_arr[$sales_order[$i]] = $order;
-            } else if(count($sales_billing) > $j) {
+            } else if (count($sales_billing) > $j) {
                 $sales_billing[$j] . $sales_order_arr['billing_address'][$sales_billing[$j]] = $order;
                 $j++;
             } else if (count($sales_shipping) > $k) {
@@ -138,7 +138,7 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
         $sales_order_item_arr = array();
         $sales_order_item = $this->getSalesItem();
         $i = 0;
-        for($j = 91; $j < count($orders_data); $j++) {
+        for ($j = 91; $j < count($orders_data); $j++) {
             if (count($sales_order_item) > $i) {
                 $sales_order_item_arr[$sales_order_item[$i]] = $orders_data[$j];
             }
@@ -223,14 +223,14 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
             'prefix',
             'firstname',
             'middlename',
-            'lastname' ,
+            'lastname',
             'suffix',
             'street',
             'city',
             'region',
             'country_id',
             'postcode',
-            'telephone' ,
+            'telephone',
             'company',
             'fax'
         );

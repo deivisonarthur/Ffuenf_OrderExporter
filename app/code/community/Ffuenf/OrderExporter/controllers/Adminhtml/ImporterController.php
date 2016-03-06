@@ -41,8 +41,8 @@ class Ffuenf_OrderExporter_Adminhtml_ImporterController extends Mage_Adminhtml_C
                 $uploader->setAllowRenameFiles(false);
                 $uploader->setFilesDispersion(false);
                 $path = Mage::getBaseDir('media') . DS . 'raveinfosys/exporter/import/';
-                $uploader->save($path, $_FILES['order_csv']['name'] );
-                $csv = Mage::getModel('exporter/importorders')->readCSV($path.$_FILES['order_csv']['name'],$data);
+                $uploader->save($path, $_FILES['order_csv']['name']);
+                $csv = Mage::getModel('exporter/importorders')->readCSV($path . $_FILES['order_csv']['name'], $data);
             } catch (Exception $e) {
                 Mage::getModel('core/session')->addError(Mage::helper('ffuenf_orderexporter')->__('Invalid file type!!'));
             }

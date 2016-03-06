@@ -23,8 +23,8 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
 
     public function exportOrders($orders)
     {
-        $fileName = 'order_export_'.date("Ymd_His").'.csv';
-        $fp = fopen(Mage::getBaseDir('export').'/'.$fileName, 'w');
+        $fileName = 'order_export_' . date("Ymd_His") . '.csv';
+        $fp = fopen(Mage::getBaseDir('export') . '/' . $fileName, 'w');
         $this->writeHeadRow($fp);
         foreach ($orders as $order) {
             $order = Mage::getModel('sales/order')->load($order);
@@ -34,11 +34,17 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         return $fileName;
     }
 
+    /**
+     * @param resource $fp
+     */
     protected function writeHeadRow($fp)
     {
         fputcsv($fp, $this->getHeadRowValues(), self::DELIMITER, self::ENCLOSURE);
     }
 
+    /**
+     * @param resource $fp
+     */
     protected function writeOrder($order, $fp)
     {
         $common = $this->getCommonOrderValues($order);
@@ -48,7 +54,7 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
         $data = array();
         $count = 0;
         foreach ($orderItems as $item) {
-            if($count == 0) {
+            if ($count == 0) {
                 $record = array_merge($common, $this->getOrderItemValues($item, $order, ++$itemInc));
                 fputcsv($fp, $record, self::DELIMITER, self::ENCLOSURE);
             } else {
@@ -285,14 +291,14 @@ class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model
     protected function getBlankOrderValues($order)
     {
         return array(
-            '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
-            '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
-            '','','','','','','','','','','','','','','','','','','','','','','','',''
+            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''
         );
     }
 
     //To return the array of ordered items
-    protected function getOrderItemValues($item, $order, $itemInc=1)
+    protected function getOrderItemValues($item, $order, $itemInc = 1)
     {
         return array(
             $this->getItemSku($item),

@@ -22,15 +22,15 @@ class Ffuenf_OrderExporter_Model_Operations_Creditmemo extends Mage_Core_Model_A
     {
         $order = $this->getOrderModel($order_id);
         try {
-            $data = array('qtys' => $credit_item ,'shipping_amount' => $creditDetail['refunded_shipping_amount'],
-            'adjustment_positive'=>$creditDetail['adjustment_positive'],'adjustment_negative' => $creditDetail['adjustment_negative']);
+            $data = array('qtys' => $credit_item, 'shipping_amount' => $creditDetail['refunded_shipping_amount'],
+            'adjustment_positive'=>$creditDetail['adjustment_positive'], 'adjustment_negative' => $creditDetail['adjustment_negative']);
             if (Mage::helper('ffuenf_orderexporter')->getVersion()) {
                 $service = Mage::getModel('sales/service_order', $order);
                 $creditMemo = $service->prepareCreditmemo($data);
                 $creditMemo = $creditMemo->setState(2)->save();
-                $this->updateStatus($order_id,$creditDetail);
+                $this->updateStatus($order_id, $creditDetail);
             } else {
-                $creditMemo = Mage::getModel('sales/order_creditmemo_api')->create($order_id, $data ,null ,0,0);
+                $creditMemo = Mage::getModel('sales/order_creditmemo_api')->create($order_id, $data, null, 0, 0);
             }
             $model = Mage::getSingleton("sales/order_creditmemo");
             $credit_id = $model->getCollection()->getLastItem()->getId();
