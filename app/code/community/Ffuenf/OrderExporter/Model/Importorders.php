@@ -18,24 +18,22 @@
 
 class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
 {
-    public $order_info      = array();
-    public $order_item_info = array();
-    public $order_item_flag = 0;
-    public $store_id        = 0;
-    public $import_limit    = 0;
+    public $orderInfo      = array();
+    public $orderItemInfo = array();
+    public $orderItemFlag = 0;
+    public $storeId        = 0;
+    public $importLimit    = 0;
 
     public function readCSV($csvFile, $data)
     {
-        $this->import_limit = $data['import_limit'];
-        $this->store_id     = $data['store_id'];
+        $this->importLimit = $data['importLimit'];
+        $this->storeId     = $data['storeId'];
         $file_handle        = fopen($csvFile, 'r');
         $i                  = 0;
-        $decline            = array();
-        $available          = array();
+        $decline            = false;
         $success            = 0;
         $parent_flag        = 0;
-        $invalid            = 0;
-        $line_number        = 2;
+        $lineNumber        = 2;
         $total_order        = 0;
         while (!feof($file_handle)) {
             $line_of_text[] = fgetcsv($file_handle);
@@ -48,11 +46,11 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
                     $this->insertOrderItem($line_of_text[$i]);
                 } else if ($parent_flag == 1) {
                     try {
-                        $message = Mage::getModel('exporter/createorder')->createOrder($this->order_info, $this->order_item_info, $this->store_id);
+                        $message = Mage::getModel('exporter/createorder')->createOrder($this->orderInfo, $this->orderItemInfo, $this->storeId);
                         Mage::getModel('exporter/createorder')->removeOrderStatusHistory();
                     } catch (Exception $e) {
                         Ffuenf_Common_Model_Logger::logException($e);
-                        $decline[] = $this->order_info['increment_id'];
+                        $decline = true;
                         $message = 0;
                     }
                     if ($message == 1) {
@@ -64,24 +62,24 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
                                 'timestamp' => 'datetime',
                                 'extension' => 'Ffuenf_OrderExporter',
                                 'type' => 'debug',
-                                'message' => "<p><strong>Order Id:</strong>" . $this->order_info['increment_id'] . "</p>
+                                'message' => "<p><strong>Order Id:</strong>" . $this->orderInfo['increment_id'] . "</p>
                                               <p><strong>Error Message:</strong> Order id already exist</p>
-                                              <p><strong>Line Number:</strong>" . $line_number . "</p>"
+                                              <p><strong>Line Number:</strong>" . $lineNumber . "</p>"
                             )
                         );
-                        $decline[] = $this->order_info['increment_id'];
+                        $decline = true;
                     }
-                    $this->order_info = array();
-                    $this->order_item_info = array();
-                    $this->order_item_flag = 0;
+                    $this->orderInfo = array();
+                    $this->orderItemInfo = array();
+                    $this->orderItemFlag = 0;
                     $this->insertOrderData($line_of_text[$i]);
                     $parent_flag = 1;
-                    $line_number = $i + 1;
+                    $lineNumber = $i + 1;
                     $total_order++;
                 }
             }
             $i++;
-            if ($this->import_limit < $total_order) {
+            if ($this->importLimit < $total_order) {
                 break;
             }
         }
@@ -95,7 +93,7 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
         return array($success, $decline);
     }
 
-    public function insertOrderData($orders_data)
+    public function insertOrderData($ordersData)
     {
         $sales_order_arr      = array();
         $sales_order_item_arr = array();
@@ -104,13 +102,12 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
         $sales_shipping       = $this->getSalesBilling();
         $sales_billing        = $this->getSalesBilling();
         $sales_order_item     = $this->getSalesItem();
-        $model                = Mage::getModel('sales/order');
         $i = 0;
         $j = 0;
         $k = 0;
         $l = 0;
         $m = 0;
-        foreach ($orders_data as $order) {
+        foreach ($ordersData as $order) {
             if (count($sales_order) > $i) {
                 $sales_order_arr[$sales_order[$i]] = $order;
             } else if (count($sales_billing) > $j) {
@@ -128,24 +125,25 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
             }
             $i++;
         }
-        $this->order_info = $sales_order_arr;
-        $this->order_item_info[$this->order_item_flag] = $sales_order_item_arr;
-        $this->order_item_flag++;
+        $this->orderInfo = $sales_order_arr;
+        $this->orderItemInfo[$this->orderItemFlag] = $sales_order_item_arr;
+        $this->orderItemFlag++;
     }
 
-    public function insertOrderItem($orders_data)
+    public function insertOrderItem($ordersData)
     {
         $sales_order_item_arr = array();
         $sales_order_item = $this->getSalesItem();
         $i = 0;
-        for ($j = 91; $j < count($orders_data); $j++) {
-            if (count($sales_order_item) > $i) {
-                $sales_order_item_arr[$sales_order_item[$i]] = $orders_data[$j];
+        $count = count($ordersData);
+        for ($j = 91; $j < $count; $j++) {
+            if ($count > $i) {
+                $sales_order_item_arr[$sales_order_item[$i]] = $ordersData[$j];
             }
             $i++;
         }
-        $this->order_item_info[$this->order_item_flag] = $sales_order_item_arr;
-        $this->order_item_flag++;
+        $this->orderItemInfo[$this->orderItemFlag] = $sales_order_item_arr;
+        $this->orderItemFlag++;
     }
 
     public function getSalesTable()
@@ -196,7 +194,7 @@ class Ffuenf_OrderExporter_Model_Importorders extends Mage_Core_Model_Abstract
             'base_refunded_tax_amount',
             'refunded_discount_amount',
             'base_refunded_discount_amount',
-            'store_id',
+            'storeId',
             'order_status',
             'order_state',
             'hold_before_state',
