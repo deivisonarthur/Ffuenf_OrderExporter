@@ -20,17 +20,17 @@
 <layout version="0.1.0">
     <adminhtml_exporter_index>
         <reference name="content">
-            <block type="exporter/adminhtml_exporter" name="exporter" />
+            <block type="ffuenf_orderexporter/adminhtml_exporter" name="exporter" />
         </reference>
     </adminhtml_exporter_index>
     <adminhtml_exporter_grid>
         <reference name="root">
-            <block type="exporter/adminhtml_exporter_grid" name="root" output="toHtml" />
+            <block type="ffuenf_orderexporter/adminhtml_exporter_grid" name="root" output="toHtml" />
         </reference>
     </adminhtml_exporter_grid>
     <adminhtml_importer_index>
         <reference name="content">
-            <block type="exporter/adminhtml_exporter_edit_tab_form" name="importer" />
+            <block type="ffuenf_orderexporter/adminhtml_exporter_edit_tab_form" name="importer" />
         </reference>
     </adminhtml_importer_index>
 </layout>
