@@ -47,7 +47,7 @@ class Ffuenf_OrderExporter_Block_Adminhtml_Exporter_Edit_Tab_Form extends Mage_A
                 'label'    => Mage::helper('ffuenf_orderexporter')->__('Store View'),
                 'title'    => Mage::helper('ffuenf_orderexporter')->__('Store View'),
                 'required' => true,
-                'values'   => Mage::getModel('exporter/exporter')->getStoreIds()
+                'values'   => Mage::getModel('ffuenf_orderexporter/exporter')->getStoreIds()
             )
         );
         $fieldset->addField(
