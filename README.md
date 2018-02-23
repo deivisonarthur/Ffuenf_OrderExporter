@@ -2,16 +2,11 @@
 
 Ffuenf_OrderExporter
 ====================
-[![GitHub tag](https://img.shields.io/github/tag/ffuenf/Ffuenf_OrderExporter.svg)][tag]
-[![Build Status](https://img.shields.io/travis/ffuenf/Ffuenf_OrderExporter.svg)][travis]
-[![Code Quality](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter/badges/quality-score.png)][code_quality]
-[![Code Coverage](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter/badges/coverage.png)][code_coverage]
-[![PayPal Donate](https://img.shields.io/badge/paypal-donate-blue.svg)][paypal_donate]
-[tag]: https://github.com/ffuenf/Ffuenf_OrderExporter
-[travis]: https://travis-ci.org/ffuenf/Ffuenf_OrderExporter
-[code_quality]: https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter
-[code_coverage]: https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter
-[paypal_donate]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J2PQS2WLT2Y8W&item_name=Magento%20Extension%3a%20Ffuenf_OrderExporter&item_number=Ffuenf_OrderExporter&currency_code=EUR
+[![GitHub tag](https://img.shields.io/github/tag/ffuenf/Ffuenf_OrderExporter.svg)](https://github.com/ffuenf/Ffuenf_OrderExporter)
+[![Build Status](https://img.shields.io/travis/ffuenf/Ffuenf_OrderExporter.svg)](https://travis-ci.org/ffuenf/Ffuenf_OrderExporter)
+[![Code Quality](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter/badges/quality-score.png)](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter)
+[![Code Coverage](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter/badges/coverage.png)](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_OrderExporter)
+[![PayPal Donate](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J2PQS2WLT2Y8W&item_name=Magento%20Extension%3a%20Ffuenf_OrderExporter&item_number=Ffuenf_OrderExporter&currency_code=EUR)
 
 This is a extension for Magento Community Edition for exporting/importing orders, including shipment, invoice and credit memo.
 It is mainly a fork of [Bulk Import+Export Orders to CSV](https://www.magentocommerce.com/magento-connect/bulk-import-export-orders-to-csv.html) enhanced with proper code style and less complicated logging.
@@ -21,21 +16,19 @@ Platform
 
 The following versions are supported and tested:
 
+* Magento Community Edition 1.9.3.7
 * Magento Community Edition 1.9.2.4
 * Magento Community Edition 1.9.1.1
-* Magento Community Edition 1.8.1.0
-* Magento Community Edition 1.7.0.2
-* Magento Community Edition 1.6.2.0
 
 Other versions are assumed to work.
 
 Requirements
 ------------
 
-|                                                                     | PHP 5.5           | PHP 5.6           | PHP 7.0           |
-| ------------------------------------------------------------------- | ----------------- | ----------------- | ----------------- |
-| [EOL](https://secure.php.net/supported-versions.php) / STABLE / RC  | STABLE            | **STABLE**        | **STABLE**        |
-| automated tests on [travis]                                         | **required pass** | **required pass** | **required pass** |
+|                                                                               | PHP 7.0           | PHP 7.1              | PHP 7.2              |
+| ----------------------------------------------------------------------------- | ----------------- | -------------------- | -------------------- |
+| [EOL](https://secure.php.net/supported-versions.php) / SEC-FIX / STABLE / RC  | SEC-FIX           | **STABLE**           | **STABLE**           |
+| automated tests on [travis]                                                   | **required pass** | **allowed failures** | **allowed failures** |
 
 Magento Community Edition officially supports PHP 5.4 and PHP 5.5.
 
@@ -95,7 +88,7 @@ License and Author
 
 - Author:: Rave Infosys
 - Author:: Achim Rosenhagen (<a.rosenhagen@ffuenf.de>)
-- Copyright:: 2016, ffuenf
+- Copyright:: 2018, ffuenf
 
 The MIT License (MIT)
 
