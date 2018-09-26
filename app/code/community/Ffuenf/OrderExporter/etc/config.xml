@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Ffuenf_OrderExporter>
-            <version>1.0.6</version>
+	    <version>1.0.7</version>
         </Ffuenf_OrderExporter>
     </modules>
     <global>
@@ -118,6 +118,11 @@
                 <enable>0</enable>
                 <cron_expr>15 * * * *</cron_expr>
             </schedule>
+	    <log>
+		<enable>0</enable>
+		<profile_enable>0</profile_enable>
+		<exception_enable>0</exception_enable>
+	    </log>
         </ffuenf_orderexporter>
     </default>
     <uninstall>
