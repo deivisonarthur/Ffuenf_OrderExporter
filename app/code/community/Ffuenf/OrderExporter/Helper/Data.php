@@ -18,17 +18,10 @@
 
 class Ffuenf_OrderExporter_Helper_Data extends Ffuenf_Common_Helper_Core
 {
-    /**
-     * Path for the config for extension active status.
-     */
-    const CONFIG_EXTENSION_ACTIVE = 'ffuenf_orderexporter/general/enable';
-
-    /**
-     * Variable for if the extension is active.
-     *
-     * @var bool
-     */
-    protected $_bExtensionActive;
+    const CONFIG_EXTENSION_ACTIVE               = 'ffuenf_orderexporter/general/enable';
+    const CONFIG_EXTENSION_LOG_SYSTEM_ACTIVE    = 'ffuenf_orderexporter/log/enable';
+    const CONFIG_EXTENSION_LOG_PROFILE_ACTIVE   = 'ffuenf_orderexporter/log/profile_enable';
+    const CONFIG_EXTENSION_LOG_EXCEPTION_ACTIVE = 'ffuenf_orderexporter/log/exception_enable';
 
     /**
      * Check to see if the extension is active.
@@ -37,18 +30,36 @@ class Ffuenf_OrderExporter_Helper_Data extends Ffuenf_Common_Helper_Core
      */
     public function isExtensionActive()
     {
-        return $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, '_bExtensionActive');
+	return Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_ACTIVE);
     }
 
     /**
-     * Get compatible Magento Version
+     * Check to see if logging is active.
      *
      * @return bool
      */
-    public function getVersion()
+    public function isLogActive()
     {
-        $m = new Mage;
-        $version = $m->getVersion();
-        return in_array($version, array('1.5.0.0', '1.5.0.1', '1.5.1.0', '1.6.0.0', '1.9.1.1', '1.10.0.2', '1.10.1.1', '1.11.0.0'));
+	return Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_LOG_SYSTEM_ACTIVE);
+    }
+
+    /**
+     * Check to see if profile logging is active.
+     *
+     * @return bool
+     */
+    public function isLogProfileActive()
+    {
+	return Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_LOG_PROFILE_ACTIVE);
+    }
+
+    /**
+     * Check to see if exception logging is active.
+     *
+     * @return bool
+     */
+    public function isLogExceptionActive()
+    {
+	return Mage::getStoreConfigFlag(self::CONFIG_EXTENSION_LOG_EXCEPTION_ACTIVE);
     }
 }

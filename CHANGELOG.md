@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of Ffuenf_OrderExporter.
 
+## 1.0.7 (September 26, 2018)
+
+* update travis
+* add logging configuration and tests
+
 ## 1.0.6 (August 03, 2017)
 
 * fix blank pages (Blank Page #4)
