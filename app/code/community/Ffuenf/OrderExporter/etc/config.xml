@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Ffuenf_OrderExporter>
-	    <version>1.0.7</version>
+	    <version>1.0.8</version>
         </Ffuenf_OrderExporter>
     </modules>
     <global>
@@ -112,7 +112,7 @@
     <default>
         <ffuenf_orderexporter>
             <general>
-                <enable>0</enable>
+                <enable>1</enable>
             </general>
             <schedule>
                 <enable>0</enable>

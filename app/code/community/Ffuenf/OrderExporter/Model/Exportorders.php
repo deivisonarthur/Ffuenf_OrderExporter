@@ -16,7 +16,7 @@
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
-class Ffuenf_OrderExporter_Model_Exportorders extends Raveinfosys_Exporter_Model_Exporter
+class Ffuenf_OrderExporter_Model_Exportorders extends Ffuenf_OrderExporter_Model_Exporter
 {
     const ENCLOSURE = '"';
     const DELIMITER = ',';
