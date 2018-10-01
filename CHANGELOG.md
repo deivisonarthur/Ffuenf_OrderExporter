@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of Ffuenf_OrderExporter.
 
+
+## 1.0.8 (October 1, 2018)
+
+* fix controllers
+
 ## 1.0.7 (September 26, 2018)
 
 * update travis

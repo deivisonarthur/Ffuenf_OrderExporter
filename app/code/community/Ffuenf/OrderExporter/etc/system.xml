@@ -87,7 +87,7 @@
 		<log translate="label, comment" module="ffuenf_common">
 		    <label>Logging Configuration</label>
 		    <comment><![CDATA[Enable the logging functions for debugging purposes only]]></comment>
-		    <sort_order>200</sort_order>
+		    <sort_order>3000</sort_order>
 		    <show_in_default>1</show_in_default>
 		    <show_in_website>0</show_in_website>
 		    <show_in_store>0</show_in_store>
