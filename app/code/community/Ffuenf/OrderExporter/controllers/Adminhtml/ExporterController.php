@@ -49,14 +49,14 @@ class Ffuenf_OrderExporter_Adminhtml_ExporterController extends Mage_Adminhtml_C
             $orderArr[] = $order->getId();
         }
         $file = Mage::getModel('ffuenf_orderexporter/exportorders')->exportOrders($orderArr);
-        $this->_prepareDownloadResponse($file, file_get_contents(Mage::getBaseDir('export') . '/' . $file));
+        $this->_prepareDownloadResponse($file, file_get_contents(Mage::getBaseDir('export').'/'.$file));
     }
 
     public function exportCsvAction()
     {
         $orders = $this->getRequest()->getPost('order_ids', array());
         $file = Mage::getModel('ffuenf_orderexporter/exportorders')->exportOrders($orders);
-        $this->_prepareDownloadResponse($file, file_get_contents(Mage::getBaseDir('export') . '/' . $file));
+        $this->_prepareDownloadResponse($file, file_get_contents(Mage::getBaseDir('export').'/'.$file));
     }
 
     /**
